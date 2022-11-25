@@ -1,8 +1,6 @@
 # Table of contents
 
-* [README](README.md)
-* [About](about/README.md)
-  * [Hello World](<About/Hello World.md>)
+* [Home](README.md)
 * [Databases](databases/README.md)
   * [Indexing 101](<Databases/Indexing 101.md>)
 * [Productivity](productivity/README.md)
@@ -17,7 +15,7 @@
     * [Optimisation](big-data/spark/optimisation.md)
     * [Performance Tuning](big-data/spark/performance-tuning.md)
   * [Kafka](big-data/kafka/README.md)
-    * [Kafka 101](<Big Data/Kafka/Kafka 101.md>)
+    * [Kafka 101](big-data/kafka/kafka-101.md)
 * [Learning](learning/README.md)
   * [Go](learning/go/README.md)
     * [Go (Lang) 101](<Learning/Go/GoLang 101.md>)
@@ -26,4 +24,4 @@
     * [Warehousing](system-design/data/warehousing/README.md)
       * [Dimensions & Facts 101](system-design/data/warehousing/dimensions-and-facts-101.md)
       * [Slowly Changing Dimensions](system-design/data/warehousing/slowly-changing-dimensions.md)
-      * [Advanced Dimensions & Facts](<System Design/Data/Warehousing/Advanced Dimensions & Facts.md>)
+      * [Advanced Dimensions & Facts](system-design/data/warehousing/advanced-dimensions-and-facts.md)
