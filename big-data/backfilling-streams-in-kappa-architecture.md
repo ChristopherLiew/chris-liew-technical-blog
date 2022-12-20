@@ -10,7 +10,7 @@ Build data systems to power data analytics and ML algorithms. Real time Merched 
     2. AB Testing
     3. etc.
 - Pipeline
-  ![TakeRatePipeline](./spark/images/event-stream-netflix.png)
+  ![TakeRatePipeline](./images/event-stream-netflix.png)
 
 ## Why we need Backfills
 
@@ -54,11 +54,11 @@ Why data lake?
 4. **Engine Agnostic**
 5. **Etc.**
 
-![spark-iceberg](./spark/images/kafka-iceberg-table.png)
+![spark-iceberg](./images/kafka-iceberg-table.png)
 
 We can build and maintain a batch-based application that is equivalent to the streaming application reading from our Data Lake Iceberg Tables and use it for Backfilling given its high throughput.
 
-![lambda-architechture](./spark/images/lambda-architecture.png)
+![lambda-architechture](./images/lambda-architecture.png)
 
 However the downside is:
 
@@ -73,7 +73,7 @@ However, Flink still requires significant code changes to run in batch mode and 
 
 ## Summary of Backfilling Options
 
-![backfill-summary](,/../spark/images/backfill-summary.png)
+![backfill-summary](,/../images/backfill-summary.png)
 
 ## Backfilling in Kappa with Data Lake
 
@@ -85,7 +85,7 @@ However, Flink still requires significant code changes to run in batch mode and 
 
 ### Overview
 
-![backfill-overview](./spark/images/backfill-kappa-overview.png)
+![backfill-overview](./images/backfill-kappa-overview.png)
 
 ### Ingesting Streaming Data into a Data Lake
 
@@ -94,13 +94,13 @@ We batch our data instead of storing them individually to:
 1. Efficient compression format compatible - Parquet / Orc
 2. Avoid small file problem - Makes reading more efficient
 
-![stream-ingestion](./spark/images/ingesting-streaming-data.png)
+![stream-ingestion](./images/ingesting-streaming-data.png)
 
 ### But how do we backfill?
 
 #### Challenge 1: Applications assume Ordering
 
-![backfill-incorrect-order](./spark/images/backfill-incorrect-ordering.png)
+![backfill-incorrect-order](./images/backfill-incorrect-ordering.png)
 
 1. Strawman 1: Read Events from Files filtered by Backfill Dates
    - Positive - Scales horizontally to backfill quickly
@@ -130,7 +130,7 @@ Netflix solves this by **Coordinating watermarks** and using a **Global Watermar
 
 #### Overview of Production Applcation
 
-![kappa-backfill](./spark/images/adopting-kappa-backfill.png)
+![kappa-backfill](./images/adopting-kappa-backfill.png)
 
 This enables minimal code changes as shown:
 
