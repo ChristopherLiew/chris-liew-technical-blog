@@ -9,7 +9,9 @@ Build data systems to power data analytics and ML algorithms. Real time Merched 
     1. Algo Training
     2. AB Testing
     3. etc.
+
 - Pipeline
+
   ![TakeRatePipeline](./images/event-stream-netflix.png)
 
 ## Why we need Backfills
@@ -102,19 +104,21 @@ We batch our data instead of storing them individually to:
 
 ![backfill-incorrect-order](./images/backfill-incorrect-ordering.png)
 
-1. Strawman 1: Read Events from Files filtered by Backfill Dates
+1. Strawman A: Read Events from Files filtered by Backfill Dates
    - Positive - Scales horizontally to backfill quickly
    - Negative - Does not work for all types of applications
 
-2. Strawman 2: Order all files and read them in order
+2. Strawman B: Order all files and read them in order
    - Positive - Guarantees similar ordering semantics as Live Traffic
    - Negative - Does not scale horizontally (Bottlenecked by parallelism)
 
-3. Netflix Solution[ADD IN DIAGRAMS]: Use lateness tolerated by the App (Read files while maintaining lateness constraints)
+3. Netflix Solution: Use lateness tolerated by the App (Read files while maintaining lateness constraints)
    - Positives:
      - Gurantees ordering that works for the application (Use event-time semantics unlike Kafka's strict ordering)
      - Scales horizontally to finish backfill quickly
      - Alignment across sources to avoid state size explosion (See below)
+
+   ![tolerate-lateness](./images/tolerate-lateness-sol.png)
 
 #### Challenge 2: Reading from Multiple Sources
 
@@ -124,7 +128,9 @@ Thus during a backfill operation this could lead to a **Watermark Skew** resulti
 
 Netflix solves this by **Coordinating watermarks** and using a **Global Watermark**
 
-- Use the earliest watermark
+![global-watermark](./images/global-watermark.png)
+
+So despite `Source 3` haveing a `IW` of 10, it can only read up till a lateness of 5 minutes since it is bounded by the earliest watermark across all sources. Thus aboiding aforementioned skew issues.
 
 ### Adopting Kappa Backfill
 
@@ -167,3 +173,7 @@ class PersonalizationStreamingApp {
 1. Backfilling window and configs depend on application logic - E.g. Stateful jobs will require sufficient amount of data to build up sufficient state
 2. Backfilling job needs separate tuning form Production job - During backfills data flows through at a higher rate so we can allocate more resources
 3. Backfill can product more correct results than in production - Due to how Flink watermarks work etc.
+
+## Reference
+
+- Netflix @ Data+AI Summit 2022 by Databricks: <https://www.youtube.com/watch?v=aCIWI5k7deM>
