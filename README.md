@@ -1,5 +1,5 @@
 ---
-description: >-
+description:
   This blog serves as an organised dumping ground (or 'bullet-journal-esque'
   documentation) of anything and (hopefully) everything I've played with and
   read about.
@@ -11,14 +11,12 @@ description: >-
 
 Some key tech, domains and topics I am passionate and thus pursue more extensively include:
 
-* `Big Data Processing, Database & Distributed systems`
-* `Data Warehousing & Governance`
-* `Data Centric System Design`
+* `Big Data Warehousing & Processing, Governance, Databases &  Distributed systems`
+* `Data Driven Systems & Applications`
 * `Backend Development`
 * `Natural Language Processing & Machine Learning`
 * `Pythonic Ways`
 * `Clean Code & Design Patterns`
-* `Productivity Tooling (Dot Files & whatnot)`
 
 ## Notice an Error or Problem?
 
