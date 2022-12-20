@@ -1,8 +1,7 @@
 ---
 description:
-  This blog serves as an organised dumping ground (or 'bullet-journal-esque'
-  documentation) of anything and (hopefully) everything I've played with and
-  read about.
+  This blog serves as an organised dumping ground
+  documentation) of anything and (hopefully) everything I've played with and read about.
 ---
 
 # Home
