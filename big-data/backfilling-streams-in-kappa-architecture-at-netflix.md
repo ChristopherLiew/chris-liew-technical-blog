@@ -12,7 +12,7 @@ Build data systems to power data analytics and ML algorithms. Real time Merched 
 
 - Pipeline
 
-  ![TakeRatePipeline](./images/event-stream-netflix.png)
+  ![TakeRatePipeline](./images/kappa-backfill-netflix//event-stream-netflix.png)
 
 ## Why we need Backfills
 
@@ -56,11 +56,11 @@ Why data lake?
 4. **Engine Agnostic**
 5. **Etc.**
 
-![spark-iceberg](./images/kafka-iceberg-table.png)
+![spark-iceberg](./images/kappa-backfill-netflix//kafka-iceberg-table.png)
 
 We can build and maintain a batch-based application that is equivalent to the streaming application reading from our Data Lake Iceberg Tables and use it for Backfilling given its high throughput.
 
-![lambda-architechture](./images/lambda-architecture.png)
+![lambda-architechture](./images/kappa-backfill-netflix//lambda-architecture.png)
 
 However the downside is:
 
@@ -75,7 +75,7 @@ However, Flink still requires significant code changes to run in batch mode and 
 
 ## Summary of Backfilling Options
 
-![backfill-summary](,/../images/backfill-summary.png)
+![backfill-summary](,/../images/kappa-backfill-netflix//backfill-summary.png)
 
 ## Backfilling in Kappa with Data Lake
 
@@ -87,7 +87,7 @@ However, Flink still requires significant code changes to run in batch mode and 
 
 ### Overview
 
-![backfill-overview](./images/backfill-kappa-overview.png)
+![backfill-overview](./images/kappa-backfill-netflix//backfill-kappa-overview.png)
 
 ### Ingesting Streaming Data into a Data Lake
 
@@ -96,13 +96,13 @@ We batch our data instead of storing them individually to:
 1. Efficient compression format compatible - Parquet / Orc
 2. Avoid small file problem - Makes reading more efficient
 
-![stream-ingestion](./images/ingesting-streaming-data.png)
+![stream-ingestion](./images/kappa-backfill-netflix//ingesting-streaming-data.png)
 
 ### But how do we backfill?
 
 #### Challenge 1: Applications assume Ordering
 
-![backfill-incorrect-order](./images/backfill-incorrect-ordering.png)
+![backfill-incorrect-order](./images/kappa-backfill-netflix//backfill-incorrect-ordering.png)
 
 1. Strawman A: Read Events from Files filtered by Backfill Dates
    - Positive - Scales horizontally to backfill quickly
@@ -118,7 +118,7 @@ We batch our data instead of storing them individually to:
      - Scales horizontally to finish backfill quickly
      - Alignment across sources to avoid state size explosion (See below)
 
-   ![tolerate-lateness](./images/tolerate-lateness-sol.png)
+   ![tolerate-lateness](./images/kappa-backfill-netflix//tolerate-lateness-sol.png)
 
 #### Challenge 2: Reading from Multiple Sources
 
@@ -128,7 +128,7 @@ Thus during a backfill operation this could lead to a **Watermark Skew** resulti
 
 Netflix solves this by **Coordinating watermarks** and using a **Global Watermark**
 
-![global-watermark](./images/global-watermark.png)
+![global-watermark](./images/kappa-backfill-netflix//global-watermark.png)
 
 So despite `Source 3` haveing a `IW` of 10, it can only read up till a lateness of 5 minutes since it is bounded by the earliest watermark across all sources. Thus aboiding aforementioned skew issues.
 
@@ -136,7 +136,7 @@ So despite `Source 3` haveing a `IW` of 10, it can only read up till a lateness 
 
 #### Overview of Production Applcation
 
-![kappa-backfill](./images/adopting-kappa-backfill.png)
+![kappa-backfill](./images/kappa-backfill-netflix//adopting-kappa-backfill.png)
 
 This enables minimal code changes as shown:
 

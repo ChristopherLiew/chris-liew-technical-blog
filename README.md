@@ -1,12 +1,9 @@
 ---
-description:
-  This blog serves as an organised dumping ground
-  documentation) of anything and (hopefully) everything I've played with and read about.
+description
+  This blog serves to document (plausibly in verbatim)  anything and (hopefully) everything I've read about, worked with and toyed with.
 ---
 
-# Home
-
-## Topics
+# Topics
 
 Some key tech, domains and topics I am passionate and thus pursue more extensively include:
 
@@ -17,7 +14,7 @@ Some key tech, domains and topics I am passionate and thus pursue more extensive
 * `Pythonic Ways`
 * `Clean Code & Design Patterns`
 
-## Notice an Error or Problem?
+# Notice an Error or Problem?
 
 1. Create an Issue on the GitHub repo [here](https://github.com/ChristopherLiew/chris-liew-technical-blog/issues)
 2. Raise a Pull Request

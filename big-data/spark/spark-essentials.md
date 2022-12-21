@@ -1,4 +1,4 @@
-# Spark Core
+# Spark Essentials
 
 ## What is Spark
 
@@ -12,6 +12,8 @@ Apache spark is an open sourced fault tolerant data processing framework for Big
 Spark is largely used as a distributed batch computation engine that explciitly handles an entire workflow as a single job (hence a *dataflow* engine like *Tez* and *Flink*)
 
 ### Overview of APIs
+
+| Change Mermaird Graphs to Images
 
 :::mermaid
 graph LR
