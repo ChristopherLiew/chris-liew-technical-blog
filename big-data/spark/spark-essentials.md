@@ -15,12 +15,12 @@ Spark is largely used as a distributed batch computation engine that explciitly 
 
 | Change Mermaird Graphs to Images
 
-:::mermaid
+```mermaid
 graph LR
     SparkSQL ;
     SparkEngine ;
     YARN ;
-:::
+```
 
 ## Why Spark
 
@@ -42,13 +42,13 @@ Spark enables fault tolerance by
 
 ## Architecture
 
-::: mermaid
+``` mermaid
 graph TD
     A --> B;
     A --> C;
     B --> D;
     C --> D;
-:::
+```
 
 ### Driver
 
@@ -108,12 +108,12 @@ Cluster managers allocate physicaly resources (E.g. RAM and Cores) to our Spark 
 
 ### Languages
 
-::: mermaid
+```mermaid
 graph TD
     Python-API
     ---py4j--> Scala/Java-API
     --> Spark-Core
-:::
+```
 
 <br>
 
