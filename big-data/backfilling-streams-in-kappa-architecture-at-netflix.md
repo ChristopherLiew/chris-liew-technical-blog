@@ -2,15 +2,11 @@
 
 ## Background - Event Streaming
 
-Build data systems to power data analytics and ML algorithms. Real time Merched Impression (RMI) Flink App:
+Netflix's DEs / DPEs build data systems to power data analytics and ML algorithms such as their Real time Merchant Impression (RMI) Flink App.
 
-- Join Impression events with Playback events in real-time to attributes plays to impressions to compute `Take Rate`.
-- Use Case:
-    1. Algo Training
-    2. AB Testing
-    3. etc.
+### RMI Pipeline
 
-- Pipeline
+   Joins Impression events with Playback events in real-time to attributes plays to impressions to compute `Take Rate`.
 
   ![TakeRatePipeline](./images/kappa-backfill-netflix//event-stream-netflix.png)
 

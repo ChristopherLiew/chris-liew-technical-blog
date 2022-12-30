@@ -11,7 +11,7 @@
     * [Spark APIs](big-data/spark/spark-apis.md)
     * [Spark Essentials](big-data/spark/spark-essentials.md)
   * [Apache Iceberg](big-data/apache-iceberg.md)
-  * [Backfilling Streams In Kappa Architecture At Netflix](big-data/backfilling-streams-in-kappa-architecture-at-netflix.md)
+  * [Backfilling Streams In Kappa Architecture @ Netflix](big-data/backfilling-streams-in-kappa-architecture-at-netflix.md)
   * [Data Skew](big-data/data-skew.md)
 - [Data Management](data-management/README.md)
   * [Advanced Dimensions And Facts](data-management/advanced-dimensions-and-facts.md)
