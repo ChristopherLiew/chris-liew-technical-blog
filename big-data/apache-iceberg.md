@@ -105,7 +105,7 @@ Data may also appear missing during such operations on eventually consistency ob
 
 ![apache-iceberg-table-format](./images/apache-iceberg/iceberg-metadata.png)
 
-- ```Snapshot```: State of a table at some point in time including the set of all data files that make up the contents of the table. Data files are stored across multiple manifest files and manifests for a snapshot are listed in a single manifest list file.
+- ```Snapshot```: State of a table at some point in time including the set of all data files that make up the contents of the table. Data files are stored across multiple manifest files and manifests for a snapshot are listed in a single manifest list file. Every write / delete produces a new snapshot that reuses as much of the previous snapshot's metadata tree as possible to `avoid high write volumes`
 - ```Snapshot Metadata File```: Metadata about the table (E.g. Schema, Partition Specification, Path to the Manifest List)
 - ```Manifest List```: Metadata file that contains an entry for each manifest file associated with the snapshot. Each entry also includes a path to the manifest file & metadata (i.e. Partitions value ranges and Data file counts) allowing us to avoid reading manifests that are not required for a given operation. One per snapshot.
 - ```Manifest File```: Contains a list of paths to related data or delete files with each entry for a data file including some metadata about the file (i.e. column statistics) such as per-column upper and lower bounds useful for pruning files during scan planning. A subset of a snapshot.
@@ -221,7 +221,24 @@ Fast scan planning in Iceberg enables it to fit on a single node since its metad
 
 ### 4. Reliability
 
+To overcome the reliability issues (lack of atomicity) in Hive tables which tracks data files using both a central metastore for partitions and a file system for individual files making atomic changes impossible (i.e. S3 may return incorrect results due to the use of listing files to reconstruct the state of the table - O(Number of Partitions))
 
+Reliability guarantees in Iceberg:
+
+- `Serializable Isolation`: All changes to the table occur in a linear history of atomic table updates
+- `Reliable Reads`: Always read using a consistent snapshot of the table without holding a lock
+- `Version history and Rollback`: Snapshots are kept to rollback if latest job produces bad data
+- `Safe file-level Operations`: With atomic changes we can safely compact small files + append late data to tables
+
+Performance benefits:
+
+- `O(1) RPCs to Plan`: No need to list O(n) directions in a table to plan jobs since we can read in O(1) time the latest snapshot.
+- `Distributed Planning`: File pruning and predicate push-down are distributed to jobs, removing the metastore as a bottleneck
+- `File Granularity Partitioning`: Distributed planning + O(1) RPC calls remove current barriers to finer-grained partitioning
+
+#### Concurrent Writes
+
+Iceberg uses `optimistic concurrency` where each writer assumes no other writers are operating and writes to a new table metadata before committing by swapping the new table metadata file for the existing metadata file. If it failes a retry will occur using the new current table state (Iceberg reduces cost here by maximising the work that can be reused across retries + Validates after a conflict to ensure that assumptions are met by the current table state and thus is safe to re-apply commit and its actions)
 
 ### Java API Basics
 
